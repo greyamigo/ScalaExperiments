@@ -1,2 +1,2 @@
 # ScalaExperiments
-greyamigo's repository of scala experiments
+GreyAmigo's repository of scala experiments
