@@ -20,3 +20,6 @@ def f2(arr:List[Int]):List[Int] = {
 }
 
 f2(List(1,2,3,4,5,6,7,8))
+
+def f3(num:Int) : List[Int] = (1 to num).map(f => f).toList
+f3(10)
