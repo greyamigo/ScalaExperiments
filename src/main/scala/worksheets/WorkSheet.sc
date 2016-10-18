@@ -27,6 +27,7 @@ f3(10)
 
 val tryList = List(3,22,1,4,5,6,9,8,7,6,0,3,5,6,8,8,55,8)
 tryList.reverse
+//reverse without .reverse function
 tryList.foldLeft(List[Int]())((x: List[Int], y:Int)=> y::x)
 
 tryList.foldRight(0)((x:Int , y:Int)=> if(x%2!=0) x+y else y)
