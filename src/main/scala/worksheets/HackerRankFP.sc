@@ -24,3 +24,4 @@ def f(x: Float):Float= {
 }
 
 f(20.00.toFloat)
+
