@@ -15,6 +15,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka"      %% "akka-slf4j"      % "2.3.4",
   "ch.qos.logback"          % "logback-classic" % "1.1.2",
   "org.scalaz"             %% "scalaz-core"     % "7.1.0",
+  "io.argonaut"            %% "argonaut" % "6.1",
   "org.scalacheck"         %% "scalacheck"      % "1.12.5" % "test",
   "org.scalatest"          %% "scalatest"       % "2.2.4"  % "test",
   "org.specs2"             %% "specs2"          % "2.4"    % "test",
