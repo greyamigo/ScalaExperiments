@@ -5,8 +5,8 @@ arr.foldLeft(List[Int]())((x, y)=>
 
 f(4, List(1,2))
 
-
-def f1(delim:Int,arr:List[Int]):List[Int] = arr.filter(_ < delim)
+def f1(delim:Int,arr:List[Int]):List[Int] =
+  arr.filter(_ < delim)
 
 f1(3,List(1,2,3,4,5,6,7,8))
 
@@ -19,7 +19,6 @@ def f2(arr:List[Int]):List[Int] = {
   })
 }
 
-
 f2(List(1,2,3,4,5,6,7,8))
 
 def f3(num:Int) : List[Int] = (1 to num).map(f => f).toList
@@ -30,4 +29,4 @@ tryList.reverse
 //reverse without .reverse function
 tryList.foldLeft(List[Int]())((x: List[Int], y:Int)=> y::x)
 
-tryList.foldRight(0)((x:Int , y:Int)=> if(x%2!=0) x+y else y)
+tryList.foldRight(0)((x:Int, y:Int) => if(x%2!=0) x+y else y)
