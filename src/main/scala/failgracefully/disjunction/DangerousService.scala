@@ -1,20 +1,41 @@
 package failgracefully.disjunction
 
+import java.lang.Exception
+
 /* Different ways to fail gracefully and or exposing exceptions */
 
 object DangerousService {
+
+  val source = Math.round(Math.random*100)
+
   // Exception
   def queryNextNumber: Long = {
-    val source = Math.round(Math.random * 100)
     if (source <= 60) source
     else throw new Exception("The generated number is too big!")
   }
   // Option
   def queryNextNumber1: Option[Long] = {
-    val source = Math.round(Math.random * 100)
     if (source <= 60) Some(source)
     else None
   }
+
+  def queryNextNumberStupidTry: Long  = {
+    try {
+      if (source <= 60) source
+      else throw new Exception("The generated number is too big!")
+    } catch {
+      case _=> 0
+    }
+  }
+  /*
+   * Option v/s Try
+   * Where Option[A] is a container for a value of type A that may be present or not, Try[A] represents a computation that may result in a value of type A, if it is successful, or in some Throwable if something has gone wrong.
+   * Instances of such a container type for possible errors can easily be passed around between concurrently executing parts of your application.
+   *
+   * There are two different types of Try:
+   * 1. an instance of Try[A] represents a successful computation, it is an instance of Success[A], simply wrapping a value of type A.
+   * 2. on the other hand, it represents a computation in which an error has occurred, it is an instance of Failure[A], wrapping a Throwable, i.e. an exception or other kind of error.
+   */
 
   /* Either v/s Option / Try
    *
@@ -46,7 +67,6 @@ object DangerousService {
 
 
   def queryNextNumber2: Either[Exception, Long] = {
-    val source = Math.round(Math.random * 100)
     if (source <= 60) Right(source)
     else Left(new Exception("The generated number is too big!"))
   }
@@ -57,13 +77,11 @@ object DangerousService {
 
   //Disjunction
   def queryNextNumber3: Exception \/ Long = {
-    val source = Math.round(Math.random * 100)
     if (source <= 60) \/.right(source)
     else \/.left(new Exception("The generated number is too big!"))
   }
   //.fromTryCatchNonFatal in disjunction
   def queryNextNumber4: Throwable \/ Long = \/.fromTryCatchNonFatal {
-    val source = Math.round(Math.random * 100)
     if (source <= 60) source
     else throw new Exception("The generated number is too big!")
   }
@@ -77,7 +95,6 @@ object DangerousService {
   implicit val geNotNothing = NotNothing.isNotNothing[GenerationException]
 
   def queryNextNumber5: GenerationException \/ Long = \/.fromTryCatchThrowable {
-    val source = Math.round(Math.random * 100)
     if (source <= 60) source
     else throw new GenerationException(source, "The generated number is too big!")
   }
