@@ -29,12 +29,17 @@ object DangerousService {
   }
   /*
    * Option v/s Try
-   * Where Option[A] is a container for a value of type A that may be present or not, Try[A] represents a computation that may result in a value of type A, if it is successful, or in some Throwable if something has gone wrong.
-   * Instances of such a container type for possible errors can easily be passed around between concurrently executing parts of your application.
+   * Where Option[A] is a container for a value of type A that may be present or not.
+   * Try[A] represents a computation that may result in a value of type A,
+   *  if it is successful, or in some Throwable if something has gone wrong.
+   * Instances of such a container type for possible errors can easily be passed around between
+   *  concurrently executing parts of your application.
    *
    * There are two different types of Try:
-   * 1. an instance of Try[A] represents a successful computation, it is an instance of Success[A], simply wrapping a value of type A.
-   * 2. on the other hand, it represents a computation in which an error has occurred, it is an instance of Failure[A], wrapping a Throwable, i.e. an exception or other kind of error.
+   * 1. an instance of Try[A] represents a successful computation, it is an instance of Success[A],
+   *     simply wrapping a value of type A.
+   * 2. on the other hand, it represents a computation in which an error has occurred, it is an instance of Failure[A],
+    *     wrapping a Throwable, i.e. an exception or other kind of error.
    */
 
   /* Either v/s Option / Try
@@ -55,14 +60,19 @@ object DangerousService {
    *
    * You can ask an instance of Either if it isLeft or isRight
    *
-   * You cannot, at least not directly, use an Either instance like a collection, the way you are familiar with from Option and Try.
+   * You cannot, at least not directly, use an Either instance like a collection,
+   *  the way you are familiar with from Option and Try.
+   *
    * This is because Either is designed to be unbiased.
    *
-   * Try / Option is success-biased: it offers you map, flatMap and other methods
-   * that all work under the assumption that the Try is a Success, and if that’s not the case, they effectively don’t do anything, returning the Failure as-is.
+   * Try / Option is success-biased:
+   * it offers you map, flatMap and other methods that all work under the assumption that the Try is a Success,
+   * and if that’s not the case, they effectively don’t do anything, returning the Failure as-is.
    *
-   * The fact that Either is unbiased means that you first have to choose whether you want to work under the assumption that it is a Left or a Right.
-   * By calling left or right on an Either value, you get a LeftProjection or RightProjection, respectively, which are basically left- or right-biased wrappers for the Either.
+   * The fact that Either is unbiased means that you first have to
+   *   choose whether you want to work under the assumption that it is a Left or a Right.
+   * By calling left or right on an Either value, you get a LeftProjection or RightProjection, respectively,
+   *   which are basically left- or right-biased wrappers for the Either.
    */
 
 
@@ -98,4 +108,12 @@ object DangerousService {
     if (source <= 60) source
     else throw new GenerationException(source, "The generated number is too big!")
   }
+
+  def toInts(maybeInts : List[String]): ValidationNel[Throwable, List[Int]] = {
+    val validationList = maybeInts map { s =>
+      Validation.fromTryCatchNonFatal(s.toInt :: Nil).toValidationNel
+    }
+    validationList reduce (_ +++ _)
+  }
+
 }
