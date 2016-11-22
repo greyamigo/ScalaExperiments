@@ -2,6 +2,8 @@ package failgracefully.disjunction
 
 import java.lang.Exception
 
+import scala.util.Try
+
 /* Different ways to fail gracefully and or exposing exceptions */
 
 object DangerousService {
@@ -13,6 +15,10 @@ object DangerousService {
     if (source <= 60) source
     else throw new Exception("The generated number is too big!")
   }
+
+
+
+
   // Option
   def queryNextNumber1: Option[Long] = {
     if (source <= 60) Some(source)
@@ -27,6 +33,16 @@ object DangerousService {
       case _=> 0
     }
   }
+
+
+
+  def queryNextNumberStupidTry: Try[Long]  = {
+      if (source <= 60) Try(source)
+      else throw new Exception("The generated number is too big!")
+
+    Try(source).
+  }
+
   /*
    * Option v/s Try
    * Where Option[A] is a container for a value of type A that may be present or not.
@@ -86,12 +102,14 @@ object DangerousService {
   import scalaz._, Scalaz._
 
   //Disjunction
-  def queryNextNumber3: Exception \/ Long = {
+  def queryNextNumber3: String \/ Long = {
     if (source <= 60) \/.right(source)
-    else \/.left(new Exception("The generated number is too big!"))
+    else \/.left("The generated number is too big!")
   }
+
+
   //.fromTryCatchNonFatal in disjunction
-  def queryNextNumber4: Throwable \/ Long = \/.fromTryCatchNonFatal {
+  def queryNextNumber4: Exception \/ Long = \/.fromTryCatchNonFatal {
     if (source <= 60) source
     else throw new Exception("The generated number is too big!")
   }
