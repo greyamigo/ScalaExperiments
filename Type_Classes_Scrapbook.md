@@ -92,7 +92,7 @@ val res1 = appendItems(2, 3) // returns 6
 ```
 
 
-***Type class is a concept of having a type-dependent interface and
+**Type class is a concept of having a type-dependent interface and
 implicit implementations of that interface, with separate implementation
 for each supported type. In Scala the best way to model this is to use a
 parameterized trait and to put implicit implementations of that trait for
@@ -102,7 +102,7 @@ with extra types if you don’t have to). Type classes make it easy to add
 implementations for new types or to override implementations for
 existing types. Since these implementations are implicit, one must take
 into account precedence of implicits in Scala when reasoning about
-which one will be actually used.***
+which one will be actually used.**
 
 
 Further : https://medium.com/@sinisalouc/ad-hoc-polymorphism-and-type-classes-442ae22e5342

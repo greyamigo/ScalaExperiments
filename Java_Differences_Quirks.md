@@ -45,3 +45,32 @@ programmers to think where those exceptions should be handled, which is
 a laudable goal. Unfortunately, it can also give rise to monstrous method
 signatures such as
 ```void doSomething() throws IOException, InterruptedException, ClassNotFoundException```
+
+
+#### Variable-Length Arrays: Array Buffers
+
+Java has ArrayList and C++ has vector for arrays that grow and shrink on demand.
+The equivalent in Scala is the ``ArrayBuffer``
+
+toString differences
+
+```
+@ val arrayA = Array(1,2,3,4)
+arrayA: Array[Int] = Array(1, 2, 3, 4)
+@ arrayA.toString
+res35: String = "[I@68a334eb"
+```
+vs
+
+```
+@ import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.ArrayBuffer
+@ val b = ArrayBuffer(1, 7, 2, 9)
+b: ArrayBuffer[Int] = ArrayBuffer(1, 7, 2, 9)
+@ b.toString
+res38: String = "ArrayBuffer(1, 7, 2, 9)"
+```
+
+#### Java Conversions
+
+implicit conversion methods in ``scala.collection.JavaConversions``
